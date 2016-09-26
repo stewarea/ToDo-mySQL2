@@ -5,11 +5,11 @@
 <body>
     <h1>To Do List</h1>
 
-    {% if tasks is not empty %}
+    {% if tasks_incomplete is not empty %}
         <p>Here are all your tasks:</p>
         <ul>
-            {% for task in tasks %}
-                <li>{{ task.getDescription }}</li>
+            {% for task in tasks_incomplete %}
+                <li><a href="/tasks/{{ task.getId }}">{{ task.getDescription }}</a> Due on: {{task.getDueDate}}</li>
             {% endfor %}
         </ul>
     {% endif %}
@@ -17,6 +17,8 @@
     <form action='/tasks' method='post'>
         <label for='description'>Task Description</label>
         <input id='description' name='description' type='text'>
+        <label for='due_date'>When is this task due?</label>
+        <input id='due_date' name='due_date' type='date'>
 
         <button type='submit'>Add task</button>
     </form>
@@ -24,5 +26,14 @@
         <button type='submit'>Clear all</button>
     </form>
     <p><a href='/'>Home</a></p>
+
+    {% if tasks_complete is not empty %}
+        <p>Here are all your tasks:</p>
+        <ul>
+            {% for task in tasks_complete %}
+                <li><a href="/tasks/{{ task.getId }}">{{ task.getDescription }}</a></li>
+            {% endfor %}
+        </ul>
+    {% endif %}
 </body>
 </html>
